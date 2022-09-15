@@ -9,20 +9,29 @@ namespace SlotGame.Models
         public ISymbol B { get; set; }
         public ISymbol C { get; set; }
 
-        private List<Symbol> symbols = new List<Symbol>()
+        public List<ISymbol> symbols
         {
-            Symbols.Wildcard,
-            Symbols.Apple,
-            Symbols.Banana,
-            Symbols.Pineapple
-        };
+            get => new List<ISymbol>()
+            {
+                Symbols.Wildcard,
+                Symbols.Apple,
+                Symbols.Banana,
+                Symbols.Pineapple
+            };
+        }
 
         public decimal TotalCoefficient { get; set; }
+
+        public Row()
+        {
+            A = Symbols.Wildcard;
+            B = Symbols.Wildcard;
+            C = Symbols.Wildcard;
+        }
 
         public bool IsWin()
         {
             ISymbol[] ary = new ISymbol[3] { A, B, C };
-
             return (ary.Distinct().Where(x => !x.Equals(Symbols.Wildcard)).Count() == 1);
         }
 
@@ -47,7 +56,7 @@ namespace SlotGame.Models
 
             decimal min = 0;
             decimal max = 0;
-            Symbol symbolResult = symbols.First();
+            ISymbol symbolResult = symbols.First();
 
             foreach(var sym in symbols)
             {

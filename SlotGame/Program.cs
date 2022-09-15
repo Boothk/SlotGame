@@ -9,7 +9,7 @@ namespace SlotGame
         {
             IWallet Wallet = new Wallet();
             Wallet.Set();
-            Slots Slots = new Slots(Wallet);
+            ISlots Slots = new Slots(Wallet);
             Slots.PlayGame();
         }
     }
