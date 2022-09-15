@@ -10,7 +10,7 @@ namespace SlotGame.Interfaces
     public interface ISymbol
     {
         char Char { get; set; }
-        float Coefficient { get; set; }
-        float Probability { get; set; }
+        decimal Coefficient { get; set; }
+        decimal Probability { get; set; }
     }
 }

@@ -12,6 +12,12 @@ namespace SlotGame.Models
         {
             _wallet = wallet;
             Stake = new Stake(_wallet);
+            Rows = new List<Row>() {
+                new Row(),
+                new Row(),
+                new Row(),
+                new Row()
+            };
         }
 
         public void PlayGame()
@@ -19,7 +25,8 @@ namespace SlotGame.Models
             while (_wallet.Amount > 0)
             {
                 Stake.MakeWager();
-
+                Spin();
+                Stake.Payout();
             }
         }
 
@@ -27,7 +34,13 @@ namespace SlotGame.Models
         {
             foreach (var Row in Rows)
             {
+                Row.SpinRow();
+                Row.PrintResult();
 
+                if (Row.IsWin())
+                {
+                    Stake.winnings += Row.TotalCoefficient;
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ namespace SlotGame.Models
     public class Symbol : ISymbol
     {
         public char Char { get; set; }
-        public float Coefficient { get; set; }
-        public float Probability { get; set; }
+        public decimal Coefficient { get; set; }
+        public decimal Probability { get; set; }
     }
 }

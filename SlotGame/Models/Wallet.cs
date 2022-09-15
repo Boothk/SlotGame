@@ -9,7 +9,7 @@ namespace SlotGame.Models
 {
     public class Wallet: IWallet
     {
-        public float Amount { get; private set; }
+        public decimal Amount { get; private set; }
 
         public void Set()
         {
@@ -20,8 +20,8 @@ namespace SlotGame.Models
                 Console.WriteLine("Please deposit money you would like to play with:");
                 var amount = Console.ReadLine();
 
-                float parseOut;
-                if(float.TryParse(amount, out parseOut))
+                decimal parseOut;
+                if(decimal.TryParse(amount, out parseOut))
                 {
                     if (parseOut > 0)
                     {
@@ -32,7 +32,7 @@ namespace SlotGame.Models
             }
         }
 
-        public void Transact(float value)
+        public void Transact(decimal value)
         {
             Amount += value;
         }

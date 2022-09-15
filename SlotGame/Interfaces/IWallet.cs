@@ -10,8 +10,8 @@ namespace SlotGame.Interfaces
     public interface IWallet
     {
         public void Set();
-        public void Transact(float value);
+        public void Transact(decimal value);
         public void PrintBalance();
-        public float Amount { get; }
+        public decimal Amount { get; }
     }
 }

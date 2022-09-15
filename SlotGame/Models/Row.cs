@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SlotGame.Constants;
+using System.Diagnostics.SymbolStore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SlotGame.Models
 {
@@ -14,21 +16,26 @@ namespace SlotGame.Models
         public ISymbol B { get; set; }
         public ISymbol C { get; set; }
 
-        public float TotalCoefficient { get; set; }
-
-        public void CalculateResult()
+        private List<Symbol> symbols = new List<Symbol>()
         {
-            throw new NotImplementedException();
+            Symbols.Wildcard,
+            Symbols.Apple,
+            Symbols.Banana,
+            Symbols.Pineapple
+        };
+
+        public decimal TotalCoefficient { get; set; }
+
+        public bool IsWin()
+        {
+            ISymbol[] ary = new ISymbol[3] { A, B, C };
+
+            return (ary.Distinct().Where(x => !x.Equals(Symbols.Wildcard)).Count() == 1);
         }
 
-        public bool CalculateWin()
+        public void PrintResult()
         {
-            throw new NotImplementedException();
-        }
-
-        public string PrintResult()
-        {
-            throw new NotImplementedException();
+                Console.WriteLine($"{A.Char}{B.Char}{C.Char} ({(IsWin() ? TotalCoefficient : "Lose")})");
         }
 
         public void SpinRow()
@@ -36,25 +43,30 @@ namespace SlotGame.Models
             A = RandomSymbol();
             B = RandomSymbol();
             C = RandomSymbol();
-            TotalCoefficient = A.Coefficient + B.Coefficient + C.Coefficient;
+            TotalCoefficient = A.Coefficient + B.Coefficient + C.Coefficient; 
         }
 
         public Symbol RandomSymbol()
         {
-            float rand = 0;
+            Random rand = new Random();
+            var probabilityWeight = symbols.Sum(x => x.Probability) * 100;
+            decimal randValue = (decimal)rand.Next(0, (int)probabilityWeight) / 100;
 
-            switch (rand)
+            decimal min = 0;
+            decimal max = 0;
+            Symbol symbolResult = symbols.First();
+
+            foreach(var sym in symbols)
             {
-                case 1:
-                    return Symbols.Apple;
-                case 2:
-                    return Symbols.Banana;
-                case 3:
-                    return Symbols.Pineapple;
-                case 0:
-                default:
-                    return Symbols.Wildcard;
+                max = min + sym.Probability;
+                if(randValue >= min && randValue < max)
+                {
+                    symbolResult = sym;
+                    break;
+                }
+                min = max;
             }
+            return symbolResult;
         }
     }
 }

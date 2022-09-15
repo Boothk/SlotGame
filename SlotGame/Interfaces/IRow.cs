@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SlotGame.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,10 @@ namespace SlotGame.Interfaces
         ISymbol A { get; set; }
         ISymbol B { get; set; }
         ISymbol C { get; set; }
-        float TotalCoefficient { get; set; }
-        bool CalculateWin();
-        string PrintResult();
-        void CalculateResult();
+        decimal TotalCoefficient { get; set; }
+        bool IsWin();
+        void PrintResult();
         void SpinRow();
+        Symbol RandomSymbol();
     }
 }
