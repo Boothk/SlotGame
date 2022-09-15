@@ -1,9 +1,4 @@
 ﻿using SlotGame.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlotGame.Models
 {
@@ -43,18 +38,16 @@ namespace SlotGame.Models
         public decimal GetWinnings()
         {
             var output = winnings * wager;
-            Console.WriteLine("GetWinnings: " + output);
             return output;
         }
 
         public void Payout()
         {
             var output = (wager * -1) + GetWinnings();
-            Console.WriteLine("Payout: " + output);
             _wallet.Transact(output);
 
             Console.WriteLine($"\nYou have won: {GetWinnings()}");
-            Console.WriteLine($"Current balance is: {_wallet.Amount}");
+            _wallet.PrintBalance();
         }
     }
 }

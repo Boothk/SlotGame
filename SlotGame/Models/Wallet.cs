@@ -1,13 +1,8 @@
 ﻿using SlotGame.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlotGame.Models
 {
-    public class Wallet: IWallet
+    public class Wallet : IWallet
     {
         public decimal Amount { get; private set; }
 

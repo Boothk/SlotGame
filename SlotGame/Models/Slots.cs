@@ -2,17 +2,17 @@
 
 namespace SlotGame.Models
 {
-    class Slots
+    class Slots : ISlots
     {
         public IStake Stake { get; set; }
         public IWallet _wallet { get; set; } 
-        public List<Row> Rows { get; set; }
+        public List<IRow> Rows { get; set; }
 
         public Slots(IWallet wallet)
         {
             _wallet = wallet;
             Stake = new Stake(_wallet);
-            Rows = new List<Row>() {
+            Rows = new List<IRow>() {
                 new Row(),
                 new Row(),
                 new Row(),

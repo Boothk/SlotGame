@@ -1,13 +1,5 @@
-﻿using SlotGame.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SlotGame.Interfaces
+﻿namespace SlotGame.Interfaces
 {
-    // Responsible for results
     public interface IRow
     {
         ISymbol A { get; set; }
@@ -17,6 +9,6 @@ namespace SlotGame.Interfaces
         bool IsWin();
         void PrintResult();
         void SpinRow();
-        Symbol RandomSymbol();
+        ISymbol RandomSymbol();
     }
 }

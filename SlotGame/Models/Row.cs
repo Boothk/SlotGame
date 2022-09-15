@@ -1,12 +1,5 @@
 ﻿using SlotGame.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SlotGame.Constants;
-using System.Diagnostics.SymbolStore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SlotGame.Models
 {
@@ -46,7 +39,7 @@ namespace SlotGame.Models
             TotalCoefficient = A.Coefficient + B.Coefficient + C.Coefficient; 
         }
 
-        public Symbol RandomSymbol()
+        public ISymbol RandomSymbol()
         {
             Random rand = new Random();
             var probabilityWeight = symbols.Sum(x => x.Probability) * 100;
