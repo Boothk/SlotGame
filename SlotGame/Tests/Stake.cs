@@ -9,7 +9,6 @@ namespace SlotGame.Tests
     [TestFixture]
     public class StakeTest
     {
-        private Mock<IStake> stakeMock;
         private Mock<IWallet> walletMock;
 
         public StakeTest()

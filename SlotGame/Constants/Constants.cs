@@ -2,6 +2,8 @@
 
 namespace SlotGame.Constants
 {
+    // Using a constants class here as a means of consistency
+    // This could be made more configurable through the use of a .json file
     public static class Symbols
     {
         public static Symbol Wildcard = new Symbol() { Char = '*', Coefficient = 0, Probability = 0.05m };

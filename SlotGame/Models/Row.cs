@@ -51,6 +51,12 @@ namespace SlotGame.Models
 
         public ISymbol RandomSymbol()
         {
+            // Random.Next() returns an int between min and max
+            // Probability weights being stored as decimals - upscale by 100 to get ints
+
+            // Note we're using probability weights rather than percentage
+            // This way if more symbols are added and the total prob weight exceeds 1, they can still be used.
+
             Random rand = new Random();
             var probabilityWeight = symbols.Sum(x => x.Probability) * 100;
             decimal randValue = (decimal)rand.Next(0, (int)probabilityWeight) / 100;
