@@ -22,22 +22,23 @@ namespace SlotGame.Models
 
         public decimal TotalCoefficient { get; set; }
 
-        public Row()
-        {
-            A = Symbols.Wildcard;
-            B = Symbols.Wildcard;
-            C = Symbols.Wildcard;
-        }
-
         public bool IsWin()
         {
-            ISymbol[] ary = new ISymbol[3] { A, B, C };
-            return (ary.Distinct().Where(x => !x.Equals(Symbols.Wildcard)).Count() == 1);
+            try
+            {
+                ISymbol[] ary = new ISymbol[3] { A, B, C };
+                return (ary.Distinct().Where(x => !x.Equals(Symbols.Wildcard)).Count() == 1);
+            }
+            catch (Exception e)
+            {
+                // Ideally a logger would be here instead of a thrown exception
+                throw new NullReferenceException(e.ToString());
+            }
         }
 
         public void PrintResult()
         {
-                Console.WriteLine($"{A.Char}{B.Char}{C.Char} ({(IsWin() ? TotalCoefficient : "Lose")})");
+                Console.WriteLine($"{A.Char}{B.Char}{C.Char}");
         }
 
         public void SpinRow()

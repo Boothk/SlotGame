@@ -7,9 +7,18 @@ namespace SlotGame
     {
         static void Main(string[] args)
         {
-            IWallet Wallet = new Wallet();
-            Wallet.Set();
-            ISlots Slots = new Slots(Wallet);
+            IWallet wallet = new Wallet();
+            wallet.Set();
+
+            IStake stake = new Stake(wallet);
+            List<IRow> rows = new List<IRow>() {
+                new Row(),
+                new Row(),
+                new Row(),
+                new Row()
+            };
+
+            ISlots Slots = new Slots(wallet, stake, rows);
             Slots.PlayGame();
         }
     }

@@ -5,8 +5,8 @@ namespace SlotGame.Models
     public class Stake : IStake
     {
         public decimal wager { get; set; }
-        public IWallet _wallet { get; set; }
-        public decimal winnings { get; set; }
+        private IWallet _wallet { get; set; }
+        private decimal _winnings { get; set; }
 
         public Stake(IWallet wallet)
         {
@@ -15,7 +15,7 @@ namespace SlotGame.Models
 
         public void MakeWager()
         {
-            winnings = 0;
+            _winnings = 0;
             bool awaitingValidInput = true;
 
             while (awaitingValidInput)
@@ -26,7 +26,7 @@ namespace SlotGame.Models
                 decimal parseOut;
                 if (decimal.TryParse(amount, out parseOut))
                 {
-                    if(parseOut > 0)
+                    if(parseOut > 0 && parseOut <= _wallet.Amount)
                     {
                         wager = parseOut;
                         awaitingValidInput = false;
@@ -37,7 +37,7 @@ namespace SlotGame.Models
 
         public decimal GetWinnings()
         {
-            var output = winnings * wager;
+            var output = _winnings * wager;
             return output;
         }
 
@@ -48,6 +48,11 @@ namespace SlotGame.Models
 
             Console.WriteLine($"\nYou have won: {GetWinnings()}");
             _wallet.PrintBalance();
+        }
+
+        public void AddToWinnings(decimal value)
+        {
+            _winnings += value;
         }
     }
 }

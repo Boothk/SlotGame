@@ -4,42 +4,37 @@ namespace SlotGame.Models
 {
     class Slots : ISlots
     {
-        public IStake Stake { get; set; }
-        public IWallet _wallet { get; set; } 
-        public List<IRow> Rows { get; set; }
+        private IStake _stake { get; set; }
+        private IWallet _wallet { get; set; }
+        private List<IRow> _rows { get; set; }
 
-        public Slots(IWallet wallet)
+        public Slots(IWallet wallet, IStake stake, List<IRow> rows)
         {
             _wallet = wallet;
-            Stake = new Stake(_wallet);
-            Rows = new List<IRow>() {
-                new Row(),
-                new Row(),
-                new Row(),
-                new Row()
-            };
+            _stake = stake;
+            _rows = rows;
         }
 
         public void PlayGame()
         {
             while (_wallet.Amount > 0)
             {
-                Stake.MakeWager();
+                _stake.MakeWager();
                 Spin();
-                Stake.Payout();
+                _stake.Payout();
             }
         }
 
         public void Spin()
         {
-            foreach (var Row in Rows)
+            foreach (var row in _rows)
             {
-                Row.SpinRow();
-                Row.PrintResult();
+                row.SpinRow();
+                row.PrintResult();
 
-                if (Row.IsWin())
+                if (row.IsWin())
                 {
-                    Stake.winnings += Row.TotalCoefficient;
+                    _stake.AddToWinnings(row.TotalCoefficient);
                 }
             }
         }
